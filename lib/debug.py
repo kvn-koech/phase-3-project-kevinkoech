@@ -97,7 +97,7 @@ class DebugHelper:
             
             for table in tables:
                 result = CarRentalORM.get_all(table)
-                print(f"✓ Table '{table}': {len(result)} records")
+                print(f" Table '{table}': {len(result)} records")
             
             print("Database connection test: PASSED")
             return True
@@ -148,9 +148,9 @@ class DebugHelper:
         
         # Test 1: Database connection
         if DebugHelper.test_database_connection():
-            print("✓ Database tests passed")
+            print(" Database tests passed")
         else:
-            print("✗ Database tests failed")
+            print(" Database tests failed")
         
         # Display stats
         DebugHelper.display_database_stats()
@@ -158,7 +158,7 @@ class DebugHelper:
     @staticmethod
     def reset_database():
         """Reset the database (DANGEROUS - for development only)"""
-        confirm = input("⚠️  WARNING: This will delete ALL data. Type 'DELETE ALL' to confirm: ")
+        confirm = input(" WARNING: This will delete ALL data. Type 'DELETE ALL' to confirm: ")
         if confirm == 'DELETE ALL':
             try:
                 conn = db.get_connection()
