@@ -21,6 +21,21 @@ class DebugHelper:
         """Create sample data with Kenyan examples"""
         print("Setting up sample data with Kenyan locations...")
         
+        # Check if sample data already exists
+        existing_locations = CarRentalORM.get_all('locations')
+        existing_vehicles = CarRentalORM.get_all('vehicles')
+        
+        if len(existing_locations) >= 3 or len(existing_vehicles) >= 5:
+            print("WARNING: Sample data already exists!")
+            print("To avoid duplicates, please:")
+            print("1. Use option 5 to reset database first, OR")
+            print("2. Continue with current data (some records may fail)")
+            
+            choice = input("Continue anyway? (y/N): ").lower()
+            if choice != 'y':
+                print("Sample data setup cancelled.")
+                return
+        
         # Create sample locations in Kenyan cities
         locations_data = [
             {'name': 'Nairobi CBD Branch', 'address': 'Kenyatta Avenue, ICEA Building', 'city': 'Nairobi', 'state': 'Nairobi', 'zip_code': '00100', 'phone': '020-1234567'},
@@ -32,9 +47,12 @@ class DebugHelper:
         
         location_ids = []
         for location in locations_data:
-            location_id = CarRentalORM.create('locations', location)
-            location_ids.append(location_id)
-            print(f"Created location: {location['name']} (ID: {location_id})")
+            try:
+                location_id = CarRentalORM.create('locations', location)
+                location_ids.append(location_id)
+                print(f"Created location: {location['name']} (ID: {location_id})")
+            except Exception as e:
+                print(f"Error creating location {location['name']}: {e}")
         
         # Create sample vehicles with Kenyan license plates
         vehicles_data = [
@@ -50,9 +68,12 @@ class DebugHelper:
         
         vehicle_ids = []
         for vehicle in vehicles_data:
-            vehicle_id = CarRentalORM.create('vehicles', vehicle)
-            vehicle_ids.append(vehicle_id)
-            print(f"Created vehicle: {vehicle['year']} {vehicle['make']} {vehicle['model']} - KES {vehicle['daily_rate']}/day (ID: {vehicle_id})")
+            try:
+                vehicle_id = CarRentalORM.create('vehicles', vehicle)
+                vehicle_ids.append(vehicle_id)
+                print(f"Created vehicle: {vehicle['year']} {vehicle['make']} {vehicle['model']} - KES {vehicle['daily_rate']}/day (ID: {vehicle_id})")
+            except Exception as e:
+                print(f"Error creating vehicle {vehicle['license_plate']}: {e}")
         
         # Create sample customers with Kenyan names
         customers_data = [
@@ -65,9 +86,12 @@ class DebugHelper:
         
         customer_ids = []
         for customer in customers_data:
-            customer_id = CarRentalORM.create('customers', customer)
-            customer_ids.append(customer_id)
-            print(f"Created customer: {customer['first_name']} {customer['last_name']} (ID: {customer_id})")
+            try:
+                customer_id = CarRentalORM.create('customers', customer)
+                customer_ids.append(customer_id)
+                print(f"Created customer: {customer['first_name']} {customer['last_name']} (ID: {customer_id})")
+            except Exception as e:
+                print(f"Error creating customer {customer['first_name']} {customer['last_name']}: {e}")
         
         # Create sample rentals
         today = datetime.now().date()
@@ -78,10 +102,13 @@ class DebugHelper:
         ]
         
         for rental in rentals_data:
-            rental_id = CarRentalORM.create('rentals', rental)
-            print(f"Created rental: Customer {rental['customer_id']} - Vehicle {rental['vehicle_id']} (ID: {rental_id})")
+            try:
+                rental_id = CarRentalORM.create('rentals', rental)
+                print(f"Created rental: Customer {rental['customer_id']} - Vehicle {rental['vehicle_id']} (ID: {rental_id})")
+            except Exception as e:
+                print(f"Error creating rental: {e}")
         
-        print("\n🇰🇪 Kenyan Sample data setup completed successfully!")
+        print("\nKenyan Sample data setup completed successfully!")
         print(f"Created: {len(location_ids)} locations, {len(vehicle_ids)} vehicles, {len(customer_ids)} customers")
         print("Plus sample rentals")
         print("\nLocations: Nairobi CBD, JKIA, Mombasa, Kisumu, Nakuru")
