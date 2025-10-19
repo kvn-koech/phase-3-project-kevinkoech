@@ -161,7 +161,7 @@ def reset():
 def interactive():
     """Start interactive menu mode"""
     click.echo("\n" + "="*60)
-    click.echo("    🇰🇪 WELCOME TO KENYAN CAR RENTAL MANAGEMENT SYSTEM")
+    click.echo(" 🇰🇪 WELCOME TO KENYAN CAR RENTAL MANAGEMENT SYSTEM ")
     click.echo("="*60)
     click.echo("Starting interactive mode...")
     click.echo("Type 'debug' for debug menu or '0' to exit")
@@ -195,7 +195,7 @@ def interactive():
 def show_main_menu():
     """Display the main menu for interactive mode"""
     click.echo("\n" + "="*50)
-    click.echo("    🇰🇪 KENYAN CAR RENTAL MANAGEMENT SYSTEM")
+    click.echo(" 🇰🇪 KENYAN CAR RENTAL MANAGEMENT SYSTEM")
     click.echo("="*50)
     click.echo("1.  Vehicle Management")
     click.echo("2.  Customer Management")
@@ -302,7 +302,7 @@ def rental_menu_interactive():
 def maintenance_menu_interactive():
     while True:
         click.echo("\n" + "="*40)
-        click.echo("🔧 MAINTENANCE MANAGEMENT")
+        click.echo(" MAINTENANCE MANAGEMENT")
         click.echo("="*40)
         click.echo("1. List all maintenance records")
         click.echo("2. Back to main menu")
